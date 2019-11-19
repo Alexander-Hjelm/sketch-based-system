@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="logback-classic-1.0.13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/logback-classic-1.0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback-core-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/neuroph-core-2.96.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javaml-0.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/visrec-api-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/visrec-api-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/visrec-api-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
