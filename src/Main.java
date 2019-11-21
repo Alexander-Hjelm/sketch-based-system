@@ -13,8 +13,6 @@ public class Main {
     private static final int WINDOW_SIZE_X = 200;
     private static final int WINDOW_SIZE_Y = 200;
 
-    private static int[][] sketchImage = new int[WINDOW_SIZE_X][WINDOW_SIZE_Y];
-
     private static int mouseXPrev = -1;
     private static int mouseYPrev = -1;
 
@@ -47,8 +45,9 @@ public class Main {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Mouse released");
 
-                // Clear image
-                sketchImage = new int[WINDOW_SIZE_X][WINDOW_SIZE_Y];
+                // Save image
+                dg.SaveImage();
+                // Clear dg
                 dg.ClearLines();
             }
 
@@ -71,14 +70,12 @@ public class Main {
 
                 // Update sketch image
                 if(x < WINDOW_SIZE_X && y < WINDOW_SIZE_Y) {
-                    sketchImage[x][y] = 1;
+                    dg.AddLine(x, y, mouseXPrev, mouseYPrev);
+                    mouseXPrev = x;
+                    mouseYPrev = y;
                 }
-                dg.AddLine(x, y, mouseXPrev, mouseYPrev);
 
                 dg.repaint();
-
-                mouseXPrev = x;
-                mouseYPrev = y;
             }
 
             @Override

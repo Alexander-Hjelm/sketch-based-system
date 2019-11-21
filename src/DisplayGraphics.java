@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DisplayGraphics extends JPanel {
@@ -38,6 +41,7 @@ public class DisplayGraphics extends JPanel {
 
     private ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private boolean sketchOnly = false;
 
     public void paintComponent(Graphics g)
     {
@@ -46,9 +50,11 @@ public class DisplayGraphics extends JPanel {
         setBackground(Color.WHITE);
         //setOpaque(false);
         setForeground(Color.RED);
-        for (Rectangle r: rectangles)
+        if(!sketchOnly)
         {
-            g.fillRect(r.x, r.y, r.w, r.h);
+            for (Rectangle r : rectangles) {
+                g.fillRect(r.x, r.y, r.w, r.h);
+            }
         }
 
         //setForeground(Color.BLUE);
@@ -78,5 +84,25 @@ public class DisplayGraphics extends JPanel {
 
     public void ClearLines() {
         lines.clear();
+    }
+
+    public void SaveImage(){
+        BufferedImage imagebuf=null;
+        try {
+            imagebuf = new Robot().createScreenCapture(bounds());
+        } catch (AWTException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        Graphics2D graphics2D = imagebuf.createGraphics();
+        sketchOnly = true;
+        paint(graphics2D);
+        sketchOnly = false;
+        try {
+            ImageIO.write(imagebuf,"jpeg", new File("save1.jpeg"));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println("error");
+        }
     }
 }
