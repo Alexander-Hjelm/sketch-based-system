@@ -1,16 +1,22 @@
-
 import javax.swing.*;
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.nnet.Perceptron;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class Main {
+
+    private static final int WINDOW_SIZE_X = 200;
+    private static final int WINDOW_SIZE_Y = 200;
+
+    private static int[][] sketchImage = new int[WINDOW_SIZE_X][WINDOW_SIZE_Y];
+
+    private static int mouseXPrev = -1;
+    private static int mouseYPrev = -1;
 
     public static void main(String[] args) {
 
@@ -19,8 +25,10 @@ public class Main {
         JFrame f=new JFrame();//creating instance of JFrame
 
         DisplayGraphics dg = new DisplayGraphics();
+        f.add(dg);
         dg.AddRectangle(0, 0, 100, 100);
         dg.AddRectangle(100, 100, 50, 50);
+
 
         dg.addMouseListener(new MouseListener() {
             @Override
@@ -30,12 +38,18 @@ public class Main {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                mouseXPrev = e.getX();
+                mouseYPrev = e.getY();
                 System.out.println("Mouse pressed");
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Mouse released");
+
+                // Clear image
+                sketchImage = new int[WINDOW_SIZE_X][WINDOW_SIZE_Y];
+                dg.ClearLines();
             }
 
             @Override
@@ -54,7 +68,17 @@ public class Main {
             public void mouseDragged(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                System.out.println(x + "," + y);//these co-ords are relative to the component
+
+                // Update sketch image
+                if(x < WINDOW_SIZE_X && y < WINDOW_SIZE_Y) {
+                    sketchImage[x][y] = 1;
+                }
+                dg.AddLine(x, y, mouseXPrev, mouseYPrev);
+
+                dg.repaint();
+
+                mouseXPrev = x;
+                mouseYPrev = y;
             }
 
             @Override
@@ -62,8 +86,6 @@ public class Main {
                 // Dummy
             }
         });
-
-        f.add(dg);
 
         // Add a button, example
         //JButton b=new JButton("click");//creating instance of JButton

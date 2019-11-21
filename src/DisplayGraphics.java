@@ -1,9 +1,8 @@
-import com.sun.org.apache.regexp.internal.RE;
-
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DisplayGraphics extends Canvas {
+public class DisplayGraphics extends JPanel {
 
     private class Rectangle
     {
@@ -21,17 +20,41 @@ public class DisplayGraphics extends Canvas {
         }
     }
 
-    private ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();
-
-    public void paint(Graphics g)
+    private class Line
     {
+        public int x1;
+        public int y1;
+        public int x2;
+        public int y2;
+
+        public Line(int x1, int y1, int x2, int y2)
+        {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+        }
+    }
+
+    private ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();
+    private ArrayList<Line> lines = new ArrayList<Line>();
+
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
         setBackground(Color.WHITE);
-
+        //setOpaque(false);
         setForeground(Color.RED);
-
         for (Rectangle r: rectangles)
         {
             g.fillRect(r.x, r.y, r.w, r.h);
+        }
+
+        //setForeground(Color.BLUE);
+        for (Line l: lines)
+        {
+            g.drawLine(l.x1, l.y1, l.x2, l.y2);
         }
 
         // Example drawing functions
@@ -46,5 +69,14 @@ public class DisplayGraphics extends Canvas {
     public void AddRectangle(int x, int y, int w, int h)
     {
         rectangles.add(new Rectangle(x, y, w, h));
+    }
+
+    public void AddLine(int x1, int y1, int x2, int y2)
+    {
+        lines.add(new Line(x1, y1, x2, y2));
+    }
+
+    public void ClearLines() {
+        lines.clear();
     }
 }
