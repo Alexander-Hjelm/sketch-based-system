@@ -99,7 +99,7 @@ public class DisplayGraphics extends JPanel {
         paint(graphics2D);
         sketchOnly = false;
         try {
-            ImageIO.write(imagebuf,"jpeg", new File("save1.jpeg"));
+            ImageIO.write(imagebuf,"png", new File("save1.png"));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             System.out.println("error");
